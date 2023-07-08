@@ -5,18 +5,19 @@ import dev.gb.webplayerserver.models.concrete.collections.Podcast;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "PODCASTERS")
 public class Podcaster extends Creator {
-    @ManyToMany
-    @JoinTable(
-            name = "PODCASTER_PODCAST",
-            joinColumns = @JoinColumn(name = "PODCASTER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "PODCAST_ID")
-    )
+    @ManyToMany(mappedBy = "podcasterSet", fetch = FetchType.EAGER)
     private Set<Podcast> podcastSet = new HashSet<>();
+
+    public void addPodcast(Podcast podcast){
+        podcastSet.add(podcast);
+        podcast.addPodcaster(this);
+    }
 
     public Set<Podcast> getPodcastSet() {
         return new HashSet<>(podcastSet);
@@ -24,5 +25,23 @@ public class Podcaster extends Creator {
 
     public void setPodcastSet(Set<Podcast> podcastSet) {
         this.podcastSet = podcastSet;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Podcaster)) return false;
+        if (!super.equals(o)) return false;
+
+        Podcaster podcaster = (Podcaster) o;
+
+        return Objects.equals(podcastSet, podcaster.podcastSet);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (podcastSet != null ? podcastSet.hashCode() : 0);
+        return result;
     }
 }

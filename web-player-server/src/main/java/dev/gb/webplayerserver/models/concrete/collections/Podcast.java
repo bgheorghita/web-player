@@ -13,30 +13,42 @@ import java.util.Set;
 @Entity
 @Table(name = "PODCASTS")
 public class Podcast extends AudioFileCollection {
-    @ManyToMany(mappedBy = "podcastSet")
-    private Set<Podcaster> hostSet = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "PODCASTER_PODCAST",
+            joinColumns = @JoinColumn(name = "PODCAST_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PODCASTER_ID")
+    )
+    private Set<Podcaster> podcasterSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "podcast")
+    @OneToMany(mappedBy = "podcast", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Episode> episodeSet = new HashSet<>();
 
-    @ElementCollection
-    @CollectionTable(
-            name = "PODCAST_GENRES",
-            joinColumns = @JoinColumn(name = "PODCAST_ID")
-    )
-    @Column(name = "GENRES")
-    @Enumerated(EnumType.STRING)
+   @ManyToMany(cascade = CascadeType.MERGE)
+   @JoinTable(
+           name = "PODCAST_GENRE",
+           joinColumns = @JoinColumn(name = "PODCAST_ID"),
+           inverseJoinColumns = @JoinColumn(name = "PODCAST_GENRE_ID")
+   )
     private Set<PodcastGenre> genreSet = new HashSet<>();
 
     private LocalDate creationDate;
 
-
-    public Set<Podcaster> getHostSet() {
-        return new HashSet<>(hostSet);
+    public void addPodcaster(Podcaster podcaster){
+        podcasterSet.add(podcaster);
     }
 
-    public void setHostSet(Set<Podcaster> hostSet) {
-        this.hostSet = hostSet;
+    public void addEpisode(Episode episode){
+        episodeSet.add(episode);
+        episode.setPodcast(this);
+    }
+
+    public Set<Podcaster> getPodcasterSet() {
+        return new HashSet<>(podcasterSet);
+    }
+
+    public void setPodcasterSet(Set<Podcaster> podcasterSet) {
+        this.podcasterSet = podcasterSet;
     }
 
     public Set<Episode> getEpisodeSet() {

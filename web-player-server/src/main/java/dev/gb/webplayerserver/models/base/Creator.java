@@ -5,6 +5,7 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.MappedSuperclass;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @MappedSuperclass
 public abstract class Creator extends BaseEntity {
@@ -26,5 +27,26 @@ public abstract class Creator extends BaseEntity {
 
     public void setJoinedDate(LocalDate joinedDate) {
         this.joinedDate = joinedDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Creator)) return false;
+        if (!super.equals(o)) return false;
+
+        Creator creator = (Creator) o;
+
+        if (!Objects.equals(customDesign, creator.customDesign))
+            return false;
+        return Objects.equals(joinedDate, creator.joinedDate);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (customDesign != null ? customDesign.hashCode() : 0);
+        result = 31 * result + (joinedDate != null ? joinedDate.hashCode() : 0);
+        return result;
     }
 }
