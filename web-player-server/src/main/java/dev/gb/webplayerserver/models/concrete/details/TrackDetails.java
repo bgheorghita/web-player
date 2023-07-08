@@ -4,19 +4,14 @@ import dev.gb.webplayerserver.models.concrete.genres.TrackGenre;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Embeddable
 public class TrackDetails {
     private String lyrics;
 
-    @ElementCollection
-    @CollectionTable(
-            name = "TRACK_GENRES",
-            joinColumns = @JoinColumn(name = "TRACK_ID")
-    )
-    @Column(name = "GENRES")
-    @Enumerated(EnumType.STRING)
+    @ManyToMany
     private Set<TrackGenre> genreSet = new HashSet<>();
 
     public String getLyrics() {
@@ -28,10 +23,23 @@ public class TrackDetails {
     }
 
     public Set<TrackGenre> getGenreSet() {
-        return genreSet;
+        return new HashSet<>(genreSet);
     }
 
     public void setGenreSet(Set<TrackGenre> genreSet) {
         this.genreSet = genreSet;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TrackDetails that = (TrackDetails) o;
+        return Objects.equals(lyrics, that.lyrics) && Objects.equals(genreSet, that.genreSet);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lyrics, genreSet);
     }
 }

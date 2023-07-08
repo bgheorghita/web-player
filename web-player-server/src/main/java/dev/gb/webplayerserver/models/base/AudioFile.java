@@ -3,9 +3,9 @@ package dev.gb.webplayerserver.models.base;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@MappedSuperclass
 public abstract class AudioFile extends BaseEntity {
     private String title;
     private int durationInSeconds;
@@ -51,5 +51,32 @@ public abstract class AudioFile extends BaseEntity {
 
     public void setAddedDate(LocalDate addedDate) {
         this.addedDate = addedDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AudioFile)) return false;
+        if (!super.equals(o)) return false;
+
+        AudioFile audioFile = (AudioFile) o;
+
+        if (durationInSeconds != audioFile.durationInSeconds) return false;
+        if (!Objects.equals(title, audioFile.title)) return false;
+        if (!Objects.equals(filePath, audioFile.filePath)) return false;
+        if (!Objects.equals(description, audioFile.description))
+            return false;
+        return Objects.equals(addedDate, audioFile.addedDate);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + durationInSeconds;
+        result = 31 * result + (filePath != null ? filePath.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (addedDate != null ? addedDate.hashCode() : 0);
+        return result;
     }
 }

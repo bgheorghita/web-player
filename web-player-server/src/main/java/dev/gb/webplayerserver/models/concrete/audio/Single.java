@@ -1,39 +1,52 @@
 package dev.gb.webplayerserver.models.concrete.audio;
 
-import dev.gb.webplayerserver.models.base.AudioFile;
 import dev.gb.webplayerserver.models.concrete.creators.Artist;
-import dev.gb.webplayerserver.models.concrete.details.TrackDetails;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "SINGLES")
-public class Single extends AudioFile {
-    @ManyToMany(mappedBy = "singleSet")
-    private Set<Artist> artistSet = new HashSet<>();
+public class Single extends Track {
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "SINGLE_ARTIST",
+            joinColumns = @JoinColumn(name = "SINGLE_ID"),
+            inverseJoinColumns = @JoinColumn(name = "ARTIST_ID")
+    )
+    private final Set<Artist> artistSet = new HashSet<>();
 
-    @Embedded
-    private TrackDetails trackDetails;
+    public void addArtist(Artist artist){
+        artistSet.add(artist);
+    }
+
+    public void removeArtist(Artist artist){
+        artistSet.remove(artist);
+    }
 
 
     public Set<Artist> getArtistSet() {
         return new HashSet<>(artistSet);
     }
 
-    public void setArtistSet(Set<Artist> artistSet) {
-        this.artistSet = artistSet;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Single)) return false;
+        if (!super.equals(o)) return false;
+
+        Single single = (Single) o;
+
+        return Objects.equals(artistSet, single.artistSet) && Objects.equals(this.getId(), single.getId());
     }
 
-    public TrackDetails getTrackDetails() {
-        return trackDetails;
-    }
-
-    public void setTrackDetails(TrackDetails trackDetails) {
-        this.trackDetails = trackDetails;
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + artistSet.hashCode();
+        return result;
     }
 }

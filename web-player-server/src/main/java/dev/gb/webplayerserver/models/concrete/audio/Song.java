@@ -1,26 +1,17 @@
 package dev.gb.webplayerserver.models.concrete.audio;
 
-import dev.gb.webplayerserver.models.base.AudioFile;
-import dev.gb.webplayerserver.models.concrete.creators.Artist;
-import dev.gb.webplayerserver.models.concrete.details.TrackDetails;
 import dev.gb.webplayerserver.models.concrete.collections.Album;
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Objects;
+
 
 @Entity
 @Table(name = "SONGS")
-public class Song extends AudioFile {
-    @ManyToOne
+public class Song extends Track {
+    @ManyToOne(cascade = {CascadeType.MERGE})
+    @JoinColumn(name = "ALBUM_ID", nullable = false)
     private Album album;
-
-    @ManyToMany(mappedBy = "songSet")
-    private Set<Artist> artistSet = new HashSet<>();
-
-    @Embedded
-    private TrackDetails trackDetails;
-
 
     public Album getAlbum() {
         return album;
@@ -28,21 +19,28 @@ public class Song extends AudioFile {
 
     public void setAlbum(Album album) {
         this.album = album;
+        album.addSong(this);
     }
 
-    public Set<Artist> getArtistSet() {
-        return new HashSet<>(artistSet);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Song)) return false;
+
+        Song song = (Song) o;
+
+        return Objects.equals(this.getTitle(), song.getTitle()) && Objects.equals(this.getId(), song.getId());
     }
 
-    public void setArtistSet(Set<Artist> artistSet) {
-        this.artistSet = artistSet;
-    }
-
-    public TrackDetails getTrackDetails() {
-        return trackDetails;
-    }
-
-    public void setTrackDetails(TrackDetails trackDetails) {
-        this.trackDetails = trackDetails;
+    @Override
+    public int hashCode() {
+        int hash = 1;
+        if(getId() != null){
+            hash = 31 * hash * getId().hashCode();
+        }
+        if(getTitle() != null){
+            hash = 31 * hash * getTitle().hashCode();
+        }
+        return hash;
     }
 }
