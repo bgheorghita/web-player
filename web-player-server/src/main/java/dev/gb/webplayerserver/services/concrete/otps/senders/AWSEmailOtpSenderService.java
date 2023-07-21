@@ -22,7 +22,7 @@ public class AWSEmailOtpSenderService implements EmailOtpSenderService {
     private final Logger logger = LoggerFactory.getLogger(AWSEmailOtpSenderService.class);
     private final OtpService otpService;
 
-    @Value("${otp.email.sender}")
+    @Value("${otp.email.sender:web-player@example.com}")
     private String otpEmailSender;
 
     public AWSEmailOtpSenderService(OtpService otpService) {
@@ -72,6 +72,7 @@ public class AWSEmailOtpSenderService implements EmailOtpSenderService {
     }
 
     private String createAndReturnSenderEmail(){
+        logger.debug("otp email sender: " + otpEmailSender);
         return otpEmailSender;
     }
 
