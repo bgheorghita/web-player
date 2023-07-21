@@ -1,13 +1,13 @@
 package dev.gb.webplayerserver.models.base;
 
 import dev.gb.webplayerserver.models.concrete.design.CustomDesign;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Creator extends BaseEntity {
     @Embedded
     private CustomDesign customDesign;
