@@ -36,7 +36,7 @@ class EmailValidatorServiceImpTest {
     }
 
     @Test
-    void confirm_ShouldDeactivateUserEmail_WhenUserWithThatEmailIsSaved(){
+    void deactivate_ShouldDeactivateUserEmail_WhenUserWithThatEmailIsSaved(){
         String userEmail = user.getEmail();
         user.setEmailVerified(true);
         when(userService.findByEmail(userEmail)).thenReturn(Optional.of(user));
