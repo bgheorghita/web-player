@@ -3,6 +3,7 @@ package dev.gb.webplayerserver.services.concrete.creators.impl;
 import dev.gb.webplayerserver.models.concrete.creators.Podcaster;
 import dev.gb.webplayerserver.models.concrete.design.CustomDesign;
 import dev.gb.webplayerserver.repositories.creators.PodcasterRepository;
+import dev.gb.webplayerserver.services.creators.impl.PodcasterServiceImp;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

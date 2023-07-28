@@ -3,7 +3,10 @@ package dev.gb.webplayerserver.models.concrete.creators;
 import dev.gb.webplayerserver.models.base.Creator;
 import dev.gb.webplayerserver.models.concrete.audio.Single;
 import dev.gb.webplayerserver.models.concrete.collections.Album;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
 import java.util.HashSet;
 import java.util.Set;

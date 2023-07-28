@@ -5,8 +5,9 @@ import dev.gb.webplayerserver.models.concrete.collections.Podcast;
 import dev.gb.webplayerserver.models.concrete.creators.Podcaster;
 import dev.gb.webplayerserver.repositories.collections.PodcastRepository;
 import dev.gb.webplayerserver.repositories.creators.PodcasterRepository;
-import dev.gb.webplayerserver.services.concrete.collections.PodcastService;
-import dev.gb.webplayerserver.services.concrete.creators.PodcasterService;
+import dev.gb.webplayerserver.services.audio.impl.EpisodeServiceImp;
+import dev.gb.webplayerserver.services.collections.PodcastService;
+import dev.gb.webplayerserver.services.creators.PodcasterService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)

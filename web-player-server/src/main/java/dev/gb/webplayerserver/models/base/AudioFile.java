@@ -1,6 +1,6 @@
 package dev.gb.webplayerserver.models.base;
 
-import jakarta.persistence.*;
+import jakarta.persistence.MappedSuperclass;
 
 import java.time.LocalDate;
 import java.util.Objects;

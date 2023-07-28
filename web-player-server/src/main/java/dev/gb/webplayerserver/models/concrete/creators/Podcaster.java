@@ -2,7 +2,10 @@ package dev.gb.webplayerserver.models.concrete.creators;
 
 import dev.gb.webplayerserver.models.base.Creator;
 import dev.gb.webplayerserver.models.concrete.collections.Podcast;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
 import java.util.HashSet;
 import java.util.Objects;

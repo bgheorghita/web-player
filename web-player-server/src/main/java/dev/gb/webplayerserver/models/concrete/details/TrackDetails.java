@@ -1,7 +1,8 @@
 package dev.gb.webplayerserver.models.concrete.details;
 
 import dev.gb.webplayerserver.models.concrete.genres.TrackGenre;
-import jakarta.persistence.*;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.ManyToMany;
 
 import java.util.HashSet;
 import java.util.Objects;

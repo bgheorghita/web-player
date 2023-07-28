@@ -1,7 +1,9 @@
 package dev.gb.webplayerserver.models.concrete.genres;
 
 import dev.gb.webplayerserver.models.concrete.collections.Podcast;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
 import java.util.HashSet;
 import java.util.Set;

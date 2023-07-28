@@ -8,7 +8,7 @@
         </encoder>
     </appender>
 
-    <logger name="dev.gb.webplayerserver.services.concrete.otps.senders.AWSEmailOtpSenderService" level="debug" />
+<!--    <logger name="dev.gb.webplayerserver.services.concrete.otps.senders.AWSEmailOtpSenderService" level="debug" />-->
 
     <root level="info">
         <appender-ref ref="STDOUT" />

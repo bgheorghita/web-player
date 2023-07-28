@@ -1,7 +1,10 @@
 package dev.gb.webplayerserver.models.base;
 
 import dev.gb.webplayerserver.models.concrete.design.CustomDesign;
-import jakarta.persistence.*;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 
 import java.time.LocalDate;
 import java.util.Objects;
