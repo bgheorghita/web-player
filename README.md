@@ -1,5 +1,5 @@
 # Web-Player
-### It is a web player application that allows users to listen the available audio tracks (songs, podcasts) online.
+### It is a web player application that allows users to listen to the available audio tracks (songs, podcasts) online.
 
 #### Features
 - the users can buy a <b>PREMIUM</b> subscription
