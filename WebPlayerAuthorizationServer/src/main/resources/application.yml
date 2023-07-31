@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost/web_player_authorization_server_db
+    username: root
+    password: admin
+
+aws:
+  ses:
+    region: us-east-1
+
+otp:
+  is-activated: false
+  email-sender: example@email.com
+  expires-in-seconds: 300
+  code-length: 4
