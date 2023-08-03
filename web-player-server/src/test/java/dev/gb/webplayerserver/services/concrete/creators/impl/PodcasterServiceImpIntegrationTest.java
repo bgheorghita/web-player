@@ -53,7 +53,7 @@ class PodcasterServiceImpIntegrationTest {
         customDesign.setCoverImagePath("C_IM");
 
         savedPodcaster.setCustomDesign(customDesign);
-        savedPodcaster.setJoinedDate(LocalDate.now());
+        savedPodcaster.setCreationDate(LocalDate.now());
 
         podcasterServiceImp.save(savedPodcaster);
         Podcaster retrievedPodcaster = podcasterServiceImp.findById(savedPodcaster.getId()).orElse(null);

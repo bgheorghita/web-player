@@ -62,13 +62,13 @@ class ArtistServiceImpIntegrationTest {
         Artist newArtist = new Artist();
         Artist savedNewArtist = artistService.save(newArtist);
 
-        Artist retrevedArtist = artistService.findById(savedNewArtist.getId()).orElse(null);
-        assertEquals(savedNewArtist, retrevedArtist);
+        Artist retrievedArtist = artistService.findById(savedNewArtist.getId()).orElse(null);
+        assertEquals(savedNewArtist, retrievedArtist);
     }
 
     @Test
     void save_ShouldUpdateArtist_WhenCustomDesignIsAdded(){
-        savedArtist.setJoinedDate(LocalDate.now());
+        savedArtist.setCreationDate(LocalDate.now());
         CustomDesign customDesign = new CustomDesign();
         customDesign.setName("ARTIST");
         customDesign.setCoverImagePath("COV_IMG");
@@ -76,8 +76,8 @@ class ArtistServiceImpIntegrationTest {
         savedArtist.setCustomDesign(customDesign);
 
         savedArtist = artistService.save(savedArtist);
-        Artist retrevedArtist = artistService.findById(savedArtist.getId()).orElse(null);
-        assertEquals(savedArtist, retrevedArtist);
+        Artist retrievedArtist = artistService.findById(savedArtist.getId()).orElse(null);
+        assertEquals(savedArtist, retrievedArtist);
     }
 
     @Test
@@ -86,11 +86,11 @@ class ArtistServiceImpIntegrationTest {
         single.addArtist(savedArtist);
         Single savedSingle = singleService.save(single);
 
-        Artist retrevedArtist = artistService.findById(savedArtist.getId()).orElse(null);
+        Artist retrievedArtist = artistService.findById(savedArtist.getId()).orElse(null);
 
-        assertNotNull(retrevedArtist);
-        assertEquals(1, retrevedArtist.getSingleSet().size());
-        assertEquals(savedSingle, retrevedArtist.getSingleSet().iterator().next());
+        assertNotNull(retrievedArtist);
+        assertEquals(1, retrievedArtist.getSingleSet().size());
+        assertEquals(savedSingle, retrievedArtist.getSingleSet().iterator().next());
     }
 
     @Test
@@ -101,9 +101,9 @@ class ArtistServiceImpIntegrationTest {
 
         savedArtist.addAlbum(album);
         savedArtist = artistService.save(savedArtist);
-        Artist retrevedArtist = artistService.findById(savedArtist.getId()).orElse(null);
+        Artist retrievedArtist = artistService.findById(savedArtist.getId()).orElse(null);
 
-        assertEquals(savedArtist, retrevedArtist);
+        assertEquals(savedArtist, retrievedArtist);
     }
 
     @Test

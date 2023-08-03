@@ -1,7 +1,7 @@
 package dev.gb.webplayerserver.models.base;
 
 import dev.gb.webplayerserver.models.concrete.design.CustomDesign;
-import dev.gb.webplayerserver.models.concrete.profiles.ProfileOwner;
+import dev.gb.webplayerserver.models.concrete.creators.CreatorOwner;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -9,9 +9,9 @@ import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Profile extends BaseEntity {
+public abstract class Creator extends BaseEntity {
     @ManyToOne(cascade = CascadeType.PERSIST)
-    private ProfileOwner profileOwner;
+    private CreatorOwner creatorOwner;
     @Embedded
     private CustomDesign customDesign;
     private LocalDate creationDate;
@@ -32,12 +32,12 @@ public abstract class Profile extends BaseEntity {
         this.creationDate = createdDate;
     }
 
-    public ProfileOwner getProfileOwner() {
-        return profileOwner;
+    public CreatorOwner getCreatorOwner() {
+        return creatorOwner;
     }
 
-    public void setProfileOwner(ProfileOwner profileOwner) {
-        this.profileOwner = profileOwner;
+    public void setCreatorOwner(CreatorOwner creatorOwner) {
+        this.creatorOwner = creatorOwner;
     }
 
     @Override
@@ -45,14 +45,14 @@ public abstract class Profile extends BaseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        Profile profile = (Profile) o;
-        return Objects.equals(customDesign, profile.customDesign)
-                && Objects.equals(profileOwner, profile.profileOwner)
-                && Objects.equals(creationDate, profile.creationDate);
+        Creator creator = (Creator) o;
+        return Objects.equals(customDesign, creator.customDesign)
+                && Objects.equals(creatorOwner, creator.creatorOwner)
+                && Objects.equals(creationDate, creator.creationDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), customDesign, profileOwner, creationDate);
+        return Objects.hash(super.hashCode(), customDesign, creatorOwner, creationDate);
     }
 }

@@ -1,12 +1,12 @@
-package dev.gb.webplayerserver.models.concrete.profiles;
+package dev.gb.webplayerserver.models.concrete.creators;
 
 import jakarta.persistence.*;
 
 import java.util.Objects;
 
 @Entity
-@Table(name = "profile_owners")
-public class ProfileOwner {
+@Table(name = "creator_owners")
+public class CreatorOwner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -34,7 +34,7 @@ public class ProfileOwner {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ProfileOwner that = (ProfileOwner) o;
+        CreatorOwner that = (CreatorOwner) o;
         return id == that.id && Objects.equals(username, that.username);
     }
 
