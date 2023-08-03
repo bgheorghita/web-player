@@ -1,5 +1,6 @@
 package dev.gb.webplayerauthorizationserver.configs;
 
+import dev.gb.webplayerauthorizationserver.services.oidc.OidcUserInfoService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -9,16 +10,19 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
+import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
+import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 
 
 @Configuration
-public class ProjectConfig {
+public class SecurityConfig {
     @Bean
     @Order(1)
     public SecurityFilterChain authorizationServiceFilterChain(HttpSecurity http) throws Exception {
@@ -64,5 +68,19 @@ public class ProjectConfig {
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+
+
+    @Bean
+    public OAuth2TokenCustomizer<JwtEncodingContext> tokenCustomizerWithUserRoles(OidcUserInfoService userInfoService) {
+        return (context) -> {
+            if ("access_token".equals(context.getTokenType().getValue())) {
+                String username = context.getPrincipal().getName();
+                OidcUserInfo userInfo = userInfoService.loadUserInfo(username);
+
+                context.getClaims().claims(claims ->
+                        claims.putAll(userInfo.getClaims()));
+            }
+        };
     }
 }
