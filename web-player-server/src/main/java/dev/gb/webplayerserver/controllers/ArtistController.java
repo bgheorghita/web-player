@@ -1,6 +1,6 @@
 package dev.gb.webplayerserver.controllers;
 
-import dev.gb.webplayerserver.dtos.singles.creators.CustomDesignDto;
+import dev.gb.webplayerserver.dtos.CustomDesignDto;
 import dev.gb.webplayerserver.mappers.CustomDesignMapper;
 import dev.gb.webplayerserver.models.concrete.design.CustomDesign;
 import dev.gb.webplayerserver.services.creators.ArtistService;

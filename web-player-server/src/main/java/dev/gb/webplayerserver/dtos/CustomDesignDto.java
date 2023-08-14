@@ -1,4 +1,4 @@
-package dev.gb.webplayerserver.dtos.singles.creators;
+package dev.gb.webplayerserver.dtos;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -1,6 +1,6 @@
 package dev.gb.webplayerserver.mappers;
 
-import dev.gb.webplayerserver.dtos.singles.creators.CustomDesignDto;
+import dev.gb.webplayerserver.dtos.CustomDesignDto;
 import dev.gb.webplayerserver.models.concrete.design.CustomDesign;
 
 public class CustomDesignMapper implements DomainMapper<CustomDesignDto, CustomDesign> {
