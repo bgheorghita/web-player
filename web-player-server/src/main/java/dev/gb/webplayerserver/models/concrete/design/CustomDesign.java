@@ -3,6 +3,8 @@ package dev.gb.webplayerserver.models.concrete.design;
 import java.util.Objects;
 
 public class CustomDesign {
+    public static final String DEFAULT_COVER_IMG_PATH = "def_cov_img";
+    public static final String DEFAULT_PROFILE_IMAGE_PATH = "def_profile_img";
     private String name;
     private String coverImagePath;
     private String profileImagePath;
@@ -36,7 +38,9 @@ public class CustomDesign {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CustomDesign that = (CustomDesign) o;
-        return Objects.equals(name, that.name) && Objects.equals(coverImagePath, that.coverImagePath) && Objects.equals(profileImagePath, that.profileImagePath);
+        return Objects.equals(name, that.name)
+                && Objects.equals(coverImagePath, that.coverImagePath)
+                && Objects.equals(profileImagePath, that.profileImagePath);
     }
 
     @Override
