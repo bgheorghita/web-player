@@ -4,6 +4,7 @@ import dev.gb.webplayerserver.models.concrete.audio.Single;
 import dev.gb.webplayerserver.models.concrete.creators.Artist;
 import dev.gb.webplayerserver.models.concrete.genres.TrackGenre;
 import dev.gb.webplayerserver.repositories.audio.SingleRepository;
+import dev.gb.webplayerserver.repositories.genres.TrackGenreRepository;
 import dev.gb.webplayerserver.services.audio.impl.SingleServiceImp;
 import dev.gb.webplayerserver.services.creators.ArtistService;
 import dev.gb.webplayerserver.services.genres.GenreService;
@@ -28,6 +29,8 @@ class SingleServiceImpIntegrationTest {
     private SingleServiceImp singleServiceImp;
     @Autowired
     private SingleRepository singleRepository;
+    @Autowired
+    private TrackGenreRepository trackGenreRepository;
     @Autowired
     private ArtistService artistService;
     @Autowired
@@ -59,6 +62,7 @@ class SingleServiceImpIntegrationTest {
     @AfterEach
     void tearDown() {
         singleRepository.deleteAll();
+        trackGenreRepository.deleteAll();
     }
 
     @Test
